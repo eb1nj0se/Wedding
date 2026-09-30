@@ -1,14 +1,9 @@
 export interface RSVPData {
   id: string;
   fullName: string;
-  email: string;
   attendance: 'attending' | 'declining';
   guestCount: number;
-  plusOneName?: string;
-  dietaryPreference: string;
-  customDietary?: string;
-  favoriteSong?: string;
-  message: string;
+  message?: string;
   submittedAt: string;
 }
 

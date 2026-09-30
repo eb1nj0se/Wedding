@@ -1,50 +1,69 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Church, Sparkles, Hotel, Navigation, MapPin, ExternalLink, Copy, Check } from 'lucide-react';
+import { Church, Utensils, Navigation, MapPin, ExternalLink, Copy, Check } from 'lucide-react';
 import { HeartDivider, CornerLeaves } from './BotanicalAccents';
 
 export const DetailsCard: React.FC = () => {
   const [showMap, setShowMap] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [selectedVenue, setSelectedVenue] = useState<'church' | 'feast'>('church');
+  const [copied, setCopied] = useState<string | null>(null);
 
-  const venueName = 'St Aloysius College Auditorium';
-  const venueAddress = 'F5WJ+M97, SACT, Aloysius college, Elthuruth, Thrissur, Keralam 680611';
-  
-  // Exact Google Maps and Apple Maps navigation links
-  const googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=St+Aloysius+College+Auditorium+Elthuruth+Thrissur+Keralam+680611';
-  const appleMapsUrl = 'https://maps.apple.com/?q=St+Aloysius+College+Auditorium+Elthuruth+Thrissur&ll=10.4996,76.1822';
-  
-  // OpenStreetMap embed centered on St Aloysius College, Elthuruth, Thrissur
-  const osmEmbedUrl = 'https://www.openstreetmap.org/export/embed.html?bbox=76.1620%2C10.4850%2C76.2020%2C10.5150&layer=mapnik&marker=10.4996%2C76.1822';
+  const churchName = 'Carmalamatha Church';
+  const churchAddress = 'G538+QHR, Road, Kanjani, Chettupuzha, Thrissur, Vadanappally, Keralam 680012';
+  const churchGoogleMaps = 'https://www.google.com/maps/search/?api=1&query=Carmalamatha+Church+G538%2BQHR+Road+Kanjani+Chettupuzha+Thrissur+Vadanappally+Keralam+680012';
+  const churchAppleMaps = 'https://maps.apple.com/?q=Carmalamatha+Church+Chettupuzha+Thrissur&ll=10.5097,76.1764';
+  const churchOsmUrl = 'https://www.openstreetmap.org/export/embed.html?bbox=76.1550%2C10.4950%2C76.1950%2C10.5250&layer=mapnik&marker=10.5097%2C76.1764';
 
-  const copyAddress = () => {
+  const feastName = 'St Aloysius College Auditorium';
+  const feastAddress = 'SACT, Aloysius College, Elthuruth, Thrissur, Kerala 680611';
+  const feastGoogleMaps = 'https://www.google.com/maps/search/?api=1&query=St+Aloysius+College+Auditorium+Elthuruth+Thrissur+Keralam+680611';
+  const feastAppleMaps = 'https://maps.apple.com/?q=St+Aloysius+College+Auditorium+Elthuruth+Thrissur&ll=10.4996,76.1822';
+  const feastOsmUrl = 'https://www.openstreetmap.org/export/embed.html?bbox=76.1620%2C10.4850%2C76.2020%2C10.5150&layer=mapnik&marker=10.4996%2C76.1822';
+
+  const copyAddress = (name: string, addr: string, id: string) => {
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(`${venueName}, ${venueAddress}`);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      navigator.clipboard.writeText(`${name}, ${addr}`);
+      setCopied(id);
+      setTimeout(() => setCopied(null), 2000);
     }
   };
 
   const detailsList = [
     {
       icon: Church,
-      title: 'Betrothal Ceremony & Feast',
-      primary: venueName,
-      desc: venueAddress,
+      title: 'Betrothal Ceremony',
+      time: '10:30 AM',
+      primary: churchName,
+      desc: churchAddress,
+      subnote: null,
     },
     {
-      icon: Sparkles,
-      title: 'Attire',
-      primary: 'Formal / Traditional Festive Attire',
-      desc: 'Elegant traditional or formal attire celebrating our special day.',
-    },
-    {
-      icon: Hotel,
-      title: 'Accommodations & Travel',
-      primary: 'Thrissur City Center',
-      desc: 'For out-of-town family and guests, travel guidance and accommodation assistance are gladly provided.',
+      icon: Utensils,
+      title: 'Feast & Reception',
+      time: '12:00 PM',
+      primary: feastName,
+      desc: feastAddress,
+      subnote: 'Follows the Holy Ceremony',
     },
   ];
+
+  const activeVenueInfo = selectedVenue === 'church'
+    ? {
+        name: churchName,
+        address: churchAddress,
+        google: churchGoogleMaps,
+        apple: churchAppleMaps,
+        osm: churchOsmUrl,
+        id: 'church',
+      }
+    : {
+        name: feastName,
+        address: feastAddress,
+        google: feastGoogleMaps,
+        apple: feastAppleMaps,
+        osm: feastOsmUrl,
+        id: 'feast',
+      };
 
   return (
     <div id="details" className="relative w-full wedding-card rounded-3xl overflow-hidden pt-0 pb-8 px-6 text-center">
@@ -52,7 +71,7 @@ export const DetailsCard: React.FC = () => {
       <div className="relative -mx-6 h-48 sm:h-56 overflow-hidden bg-stone-200">
         <motion.img
           src="https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?auto=format&fit=crop&w=800&q=80"
-          alt="St Aloysius College Auditorium Venue"
+          alt="Ceremony and Celebration Venue"
           referrerPolicy="no-referrer"
           animate={{ scale: [1, 1.03, 1] }}
           transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
@@ -85,8 +104,8 @@ export const DetailsCard: React.FC = () => {
         <HeartDivider className="my-1.5" />
       </div>
 
-      {/* Details List */}
-      <div className="mt-6 space-y-5 text-left max-w-sm mx-auto">
+      {/* Perfectly Symmetrical & Aligned Details List */}
+      <div className="mt-6 space-y-4 text-left max-w-sm mx-auto">
         {detailsList.map((item, idx) => {
           const Icon = item.icon;
           return (
@@ -96,29 +115,39 @@ export const DetailsCard: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-20px' }}
               transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-start gap-3.5"
+              className="p-4 rounded-2xl bg-[#fdfbf7] border border-[#717861]/20 shadow-2xs flex items-start gap-3.5"
             >
-              <div className="w-9 h-9 rounded-full bg-[#f4efe6] border border-[#717861]/25 flex items-center justify-center shrink-0 mt-0.5 text-[#5b624d] shadow-2xs">
+              <div className="w-10 h-10 rounded-full bg-[#f4efe6] border border-[#717861]/25 flex items-center justify-center shrink-0 mt-0.5 text-[#5b624d] shadow-2xs">
                 <Icon className="w-4 h-4" />
               </div>
-              <div className="flex-1">
-                <h3 className="font-serif text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#2d2926]">
-                  {item.title}
-                </h3>
-                <p className="text-xs font-medium text-[#2d2926] mt-0.5">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="font-serif text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#2d2926]">
+                    {item.title}
+                  </h3>
+                  <span className="text-[11px] text-[#5b624d] font-semibold bg-[#f4efe6] px-2 py-0.5 rounded-md shrink-0">
+                    {item.time}
+                  </span>
+                </div>
+                <p className="text-xs font-semibold text-[#5b624d] mt-1">
                   {item.primary}
                 </p>
                 <p className="text-[11px] sm:text-xs text-[#57524d] font-light leading-relaxed mt-0.5 break-words">
                   {item.desc}
                 </p>
+                {item.subnote && (
+                  <p className="text-[10px] text-[#717861] italic mt-1 font-serif">
+                    * {item.subnote}
+                  </p>
+                )}
               </div>
             </motion.div>
           );
         })}
       </div>
 
-      {/* PROMINENTLY HIGHLIGHTED VENUE & DIRECTIONS BUTTON */}
-      <div className="mt-7 max-w-sm mx-auto">
+      {/* PROMINENTLY HIGHLIGHTED VENUES & DIRECTIONS BUTTON */}
+      <div className="mt-6 max-w-sm mx-auto">
         <motion.button
           onClick={() => setShowMap(!showMap)}
           whileHover={{ scale: 1.02 }}
@@ -127,15 +156,15 @@ export const DetailsCard: React.FC = () => {
         >
           <MapPin className="w-4 h-4 text-[#e2d9cc] animate-bounce" />
           <span className="font-semibold tracking-wide">
-            {showMap ? 'Hide Venue Map' : 'View Venue & Directions'}
+            {showMap ? 'Hide Venue Maps' : 'View Venue Locations & GPS'}
           </span>
           <span className="text-[10px] opacity-80 font-normal">
-            ({showMap ? 'Close' : 'Map & GPS'})
+            ({showMap ? 'Close' : 'Church & Feast'})
           </span>
         </motion.button>
       </div>
 
-      {/* Embedded Map Section with Direct Apple & Google Maps Buttons */}
+      {/* Embedded Map Section with Switcher for Church vs Feast */}
       <AnimatePresence>
         {showMap && (
           <motion.div
@@ -145,24 +174,55 @@ export const DetailsCard: React.FC = () => {
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="mt-5 rounded-2xl overflow-hidden border border-[#717861]/30 shadow-md text-left bg-white"
           >
+            {/* Tabs for Church vs Feast */}
+            <div className="flex border-b border-[#717861]/20 bg-[#f4efe6]">
+              <button
+                onClick={() => setSelectedVenue('church')}
+                className={`flex-1 py-2.5 px-3 text-xs font-semibold tracking-wide transition-colors flex items-center justify-center gap-1.5 cursor-pointer touch-manipulation ${
+                  selectedVenue === 'church'
+                    ? 'bg-white text-[#5b624d] border-b-2 border-[#5b624d]'
+                    : 'text-[#6e6760] hover:text-[#2d2926]'
+                }`}
+              >
+                <Church className="w-3.5 h-3.5" />
+                <span>1. Church (Ceremony)</span>
+              </button>
+              <button
+                onClick={() => setSelectedVenue('feast')}
+                className={`flex-1 py-2.5 px-3 text-xs font-semibold tracking-wide transition-colors flex items-center justify-center gap-1.5 cursor-pointer touch-manipulation ${
+                  selectedVenue === 'feast'
+                    ? 'bg-white text-[#5b624d] border-b-2 border-[#5b624d]'
+                    : 'text-[#6e6760] hover:text-[#2d2926]'
+                }`}
+              >
+                <Utensils className="w-3.5 h-3.5" />
+                <span>2. Auditorium (Feast)</span>
+              </button>
+            </div>
+
             {/* Interactive Map Iframe */}
-            <div className="h-60 w-full bg-stone-100 relative">
+            <div className="h-56 w-full bg-stone-100 relative">
               <iframe
-                title="St Aloysius College Auditorium Location"
-                src={osmEmbedUrl}
+                key={activeVenueInfo.id}
+                title={`${activeVenueInfo.name} Location`}
+                src={activeVenueInfo.osm}
                 className="w-full h-full border-0"
                 loading="lazy"
               />
               <div className="absolute top-2 left-2 right-2 p-2 rounded-xl bg-white/95 backdrop-blur-xs border border-stone-200 text-xs shadow-sm flex items-center justify-between">
                 <span className="font-medium text-[#2d2926] truncate pr-2">
-                  St Aloysius College Auditorium
+                  {activeVenueInfo.name}
                 </span>
                 <button
-                  onClick={copyAddress}
-                  className="px-2 py-1 rounded-md bg-[#f4efe6] text-[10px] text-[#5b624d] font-semibold shrink-0 flex items-center gap-1 hover:bg-[#e8dfd3]"
+                  onClick={() => copyAddress(activeVenueInfo.name, activeVenueInfo.address, activeVenueInfo.id)}
+                  className="px-2 py-1 rounded-md bg-[#f4efe6] text-[10px] text-[#5b624d] font-semibold shrink-0 flex items-center gap-1 hover:bg-[#e8dfd3] cursor-pointer"
                 >
-                  {copied ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                  <span>{copied ? 'Copied' : 'Copy'}</span>
+                  {copied === activeVenueInfo.id ? (
+                    <Check className="w-3 h-3 text-emerald-600" />
+                  ) : (
+                    <Copy className="w-3 h-3" />
+                  )}
+                  <span>{copied === activeVenueInfo.id ? 'Copied' : 'Copy'}</span>
                 </button>
               </div>
             </div>
@@ -170,14 +230,18 @@ export const DetailsCard: React.FC = () => {
             {/* Address Banner & Direct App Buttons */}
             <div className="p-3.5 bg-[#fdfbf7] border-t border-[#717861]/15 space-y-3">
               <div className="text-[11px] text-[#57524d] leading-snug">
-                <span className="font-semibold text-[#2d2926] block">{venueName}</span>
-                <span className="font-mono text-[10px] text-[#717861]">{venueAddress}</span>
+                <span className="font-semibold text-[#2d2926] block">
+                  {activeVenueInfo.name}
+                </span>
+                <span className="font-mono text-[10px] text-[#717861]">
+                  {activeVenueInfo.address}
+                </span>
               </div>
 
               {/* Direct GPS App Launchers */}
               <div className="flex items-center gap-2 pt-1">
                 <a
-                  href={googleMapsUrl}
+                  href={activeVenueInfo.google}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-2 px-3 rounded-xl bg-[#5b624d] hover:bg-[#4a503e] text-white text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm min-h-[38px] transition-colors"
@@ -188,7 +252,7 @@ export const DetailsCard: React.FC = () => {
                 </a>
 
                 <a
-                  href={appleMapsUrl}
+                  href={activeVenueInfo.apple}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-2 px-3 rounded-xl bg-white hover:bg-stone-50 border border-[#717861]/35 text-[#2d2926] text-xs font-semibold flex items-center justify-center gap-1.5 shadow-2xs min-h-[38px] transition-colors"

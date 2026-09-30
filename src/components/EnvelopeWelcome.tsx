@@ -72,7 +72,7 @@ export const EnvelopeWelcome: React.FC<EnvelopeWelcomeProps> = ({ onOpen }) => {
 
               {/* Names */}
               <h1 className="font-serif text-2xl sm:text-3xl text-[#2d2926] tracking-wide my-1">
-                Ashik &amp; Teresa
+                Dr. Ashik &amp; Dr. Teresa
               </h1>
 
               <p className="font-script text-2xl text-[#717861] my-0.5">
@@ -82,10 +82,10 @@ export const EnvelopeWelcome: React.FC<EnvelopeWelcomeProps> = ({ onOpen }) => {
               <HeartDivider className="my-3 text-[#717861] opacity-60 w-36" />
 
               <p className="text-xs text-[#6e6862] leading-relaxed mb-6 max-w-[260px]">
-                Sunday, 17 May 2026 • 04:00 PM
+                Saturday, 26 December 2026 • 10:30 AM
                 <br />
                 <span className="text-[11px] text-[#8c827a]">
-                  St. Joseph&apos;s Cathedral, Kariyad
+                  Carmalamatha church, Chettupuzha
                 </span>
               </p>
 
@@ -106,7 +106,7 @@ export const EnvelopeWelcome: React.FC<EnvelopeWelcomeProps> = ({ onOpen }) => {
               {/* Audio footnote */}
               <p className="text-[10px] text-[#8c827a] mt-3 flex items-center justify-center gap-1.5">
                 <Volume2 className="w-3 h-3 text-[#717861]" />
-                <span>Plays Indila — Love Story on open</span>
+                <span>Plays music on open</span>
               </p>
             </div>
           </motion.div>

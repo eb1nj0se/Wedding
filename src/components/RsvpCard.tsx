@@ -111,6 +111,17 @@ export const RsvpCard: React.FC<RsvpCardProps> = ({ onOpenRsvpModal, userRsvp })
             <span className="font-medium text-[11px]">Declines with Regret</span>
           </button>
         </div>
+
+        {userRsvp?.message && (
+          <div className="pt-2 border-t border-[#717861]/20">
+            <span className="text-[10px] uppercase tracking-wider text-[#717861] block font-serif">
+              Note for the Couple:
+            </span>
+            <p className="text-xs text-[#2d2926] italic mt-0.5 break-words">
+              &ldquo;{userRsvp.message}&rdquo;
+            </p>
+          </div>
+        )}
       </motion.div>
 
       {/* QR Code and Quick RSVP (Website removed as requested) */}

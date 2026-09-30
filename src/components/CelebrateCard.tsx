@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Calendar, Clock } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import { HeartDivider } from './BotanicalAccents';
-import { getGoogleCalendarUrl, WEDDING_EVENT } from '../utils/calendar';
+import { WEDDING_EVENT } from '../utils/calendar';
 
 export const CelebrateCard: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -116,7 +116,7 @@ export const CelebrateCard: React.FC = () => {
       </div>
 
       {/* Couple's Sign-off */}
-      <div className="pt-2 pb-4">
+      <div className="pt-2 pb-2">
         <p className="text-[10px] tracking-[0.25em] uppercase text-[#717861] font-medium mb-1">
           With Love,
         </p>
@@ -147,19 +147,6 @@ export const CelebrateCard: React.FC = () => {
             </span>
           </motion.div>
         </div>
-      </div>
-
-      {/* Calendar action button */}
-      <div className="flex items-center justify-center pt-2">
-        <a
-          href={getGoogleCalendarUrl()}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-5 py-2.5 rounded-full bg-white border border-[#717861]/25 text-xs text-[#2d2926] font-medium flex items-center gap-2 shadow-xs hover:bg-stone-50 touch-manipulation min-h-[40px] transition-colors"
-        >
-          <Calendar className="w-3.5 h-3.5 text-[#5b624d]" />
-          <span>Add to Google Calendar</span>
-        </a>
       </div>
     </div>
   );

@@ -6,8 +6,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { HeroInvitationCard } from './components/HeroInvitationCard';
 import { OurStoryCard } from './components/OurStoryCard';
+import { SaveTheDateCard } from './components/SaveTheDateCard';
 import { DetailsCard } from './components/DetailsCard';
-import { TimelineCard } from './components/TimelineCard';
 import { RsvpCard } from './components/RsvpCard';
 import { CelebrateCard } from './components/CelebrateCard';
 import { RsvpModal } from './components/RsvpModal';
@@ -21,8 +21,8 @@ import { RSVPData } from './types';
 const BETROTHAL_CARDS: CardItem[] = [
   { id: 'invite', label: 'Main Invitation', short: 'Invite' },
   { id: 'story', label: 'Our Story', short: 'Story' },
+  { id: 'savedate', label: 'Save The Date', short: 'Save Date' },
   { id: 'details', label: 'The Details', short: 'Details' },
-  { id: 'timeline', label: 'The Timeline', short: 'Timeline' },
   { id: 'rsvp', label: 'Kindly RSVP', short: 'RSVP' },
   { id: 'celebrate', label: 'Celebrate With Us', short: 'Celebrate' },
 ];
@@ -37,15 +37,11 @@ export default function App() {
   const [maxVisitedIndex, setMaxVisitedIndex] = useState(0);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [userRsvp, setUserRsvp] = useState<RSVPData | null>(null);
-  const [showWelcomeEnvelope, setShowWelcomeEnvelope] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return sessionStorage.getItem('invitation_opened') !== 'true';
-  });
+  const [showWelcomeEnvelope, setShowWelcomeEnvelope] = useState(true);
 
   const phoneScrollRef = useRef<HTMLDivElement | null>(null);
 
   const handleOpenWelcome = () => {
-    sessionStorage.setItem('invitation_opened', 'true');
     setShowWelcomeEnvelope(false);
     audioEngine.play();
   };
@@ -235,14 +231,14 @@ export default function App() {
         <OurStoryCard />
       </div>
 
-      {/* Card 3: The Details & Map */}
+      {/* Card 3: Save The Date Calendar */}
       <div className="card-snap-item pt-2 sm:pt-4">
-        <DetailsCard />
+        <SaveTheDateCard />
       </div>
 
-      {/* Card 4: The Timeline */}
+      {/* Card 4: The Details & Map */}
       <div className="card-snap-item pt-2 sm:pt-4">
-        <TimelineCard />
+        <DetailsCard />
       </div>
 
       {/* Card 5: Kindly RSVP */}

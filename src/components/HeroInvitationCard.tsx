@@ -43,7 +43,7 @@ export const HeroInvitationCard: React.FC<HeroInvitationCardProps> = ({
         <CornerLeaves className="w-20 h-20 text-[#606752] opacity-80" />
       </motion.div>
 
-      {/* Audio & Calendar Quick Action at Top Right */}
+      {/* Audio & Calendar Quick Actions at Top Right */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -95,16 +95,19 @@ export const HeroInvitationCard: React.FC<HeroInvitationCardProps> = ({
           Together With Their Families
         </motion.p>
 
-        {/* Diagonal Monogram Typography: Ashik (left) -> & (center) -> Teresa (right) */}
+        {/* Diagonal Monogram Typography: Dr. Ashik (left) -> & (center) -> Dr. Teresa (right) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="my-3 w-full max-w-[280px] mx-auto flex flex-col"
+          className="my-3 w-full max-w-[290px] mx-auto flex flex-col"
         >
-          {/* Ashik - shifted slightly to the left from center with enlarged initial 'A' */}
-          <div className="flex items-baseline justify-center -translate-x-6 sm:-translate-x-8">
+          {/* Dr. Ashik - shifted slightly to the left from center with enlarged initial 'A' */}
+          <div className="flex items-baseline justify-center -translate-x-3 sm:-translate-x-5">
+            <span className="font-serif text-xs sm:text-sm font-medium tracking-[0.2em] text-[#717861] uppercase mr-1 self-center">
+              Dr.
+            </span>
             <span className="font-serif text-5xl sm:text-6xl md:text-7xl font-normal text-[#5b624d] leading-none inline-block drop-shadow-xs select-none">
               A
             </span>
@@ -124,8 +127,11 @@ export const HeroInvitationCard: React.FC<HeroInvitationCardProps> = ({
             </span>
           </motion.div>
 
-          {/* Teresa - shifted slightly to the right from center with enlarged initial 'T' */}
-          <div className="flex items-baseline justify-center translate-x-6 sm:translate-x-8">
+          {/* Dr. Teresa - shifted slightly to the right from center with enlarged initial 'T' */}
+          <div className="flex items-baseline justify-center translate-x-3 sm:translate-x-5">
+            <span className="font-serif text-xs sm:text-sm font-medium tracking-[0.2em] text-[#717861] uppercase mr-1 self-center">
+              Dr.
+            </span>
             <span className="font-serif text-5xl sm:text-6xl md:text-7xl font-normal text-[#5b624d] leading-none inline-block drop-shadow-xs select-none">
               T
             </span>
@@ -201,9 +207,9 @@ export const HeroInvitationCard: React.FC<HeroInvitationCardProps> = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="font-serif text-sm tracking-[0.18em] uppercase text-[#2d2926] font-medium"
+            className="font-serif text-xs sm:text-sm tracking-[0.16em] uppercase text-[#2d2926] font-medium"
           >
-            St Aloysius College Auditorium
+            Carmalamatha Church &middot; St Aloysius Auditorium
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 6 }}
@@ -212,7 +218,7 @@ export const HeroInvitationCard: React.FC<HeroInvitationCardProps> = ({
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-[10px] tracking-[0.2em] uppercase text-[#5b624d] mt-0.5"
           >
-            Elthuruth, Thrissur, Kerala
+            Chettupuzha &middot; Elthuruth, Thrissur
           </motion.p>
           <motion.div
             animate={{ scale: [1, 1.25, 1] }}

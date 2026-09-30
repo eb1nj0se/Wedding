@@ -53,62 +53,120 @@ export const OurStoryCard: React.FC = () => {
       {/* Heart Divider */}
       <HeartDivider className="my-1.5" />
 
-      {/* Two Column Layout: Left Photos, Right Timeline */}
-      <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[130px_1fr] gap-3 sm:gap-4 mt-6 text-left items-center">
-        {/* Left: 4 Photos Stacked with gentle stagger */}
-        <div className="flex flex-col gap-3.5">
-          {MILESTONES.map((item, idx) => (
-            <motion.div
-              key={item.year}
-              initial={{ opacity: 0, x: -14, rotate: idx % 2 === 0 ? -4 : 4 }}
-              whileInView={{ opacity: 1, x: 0, rotate: idx % 2 === 0 ? -1.5 : 1.5 }}
-              viewport={{ once: true, margin: '-20px' }}
-              transition={{ duration: 0.7, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ scale: 1.05, rotate: 0 }}
-              className="relative p-1 bg-white rounded-lg shadow-sm border border-[#717861]/20 overflow-hidden cursor-pointer"
-            >
-              <div className="aspect-4/3 rounded overflow-hidden bg-stone-100">
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-            </motion.div>
-          ))}
-        </div>
+      {/* Alternating Zig-Zag Timeline Layout */}
+      <div className="relative mt-7 space-y-6 sm:space-y-7">
+        {/* Central delicate vertical timeline stem */}
+        <div className="absolute left-1/2 -translate-x-1/2 top-3 bottom-3 w-[1.5px] bg-[#8a927a]/35 pointer-events-none" />
 
-        {/* Right: Vertical Timeline with gentle stagger */}
-        <div className="relative pl-4 border-l border-[#8a927a]/35 flex flex-col justify-between py-1 space-y-5">
-          {MILESTONES.map((item, idx) => (
-            <motion.div
-              key={item.year}
-              initial={{ opacity: 0, x: 14 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-20px' }}
-              transition={{ duration: 0.7, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="relative group"
-            >
-              {/* Dot marker on vertical line with gentle pulse */}
-              <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 3, delay: idx * 0.5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-[#717861] border-2 border-[#fdfbf7]"
-              />
+        {MILESTONES.map((item, idx) => {
+          const isImageLeft = idx % 2 === 0;
 
-              <div className="font-mono text-xs font-semibold text-[#5b624d] tracking-wider">
-                {item.year}
+          return (
+            <div
+              key={item.year}
+              className="relative grid grid-cols-[1fr_26px_1fr] sm:grid-cols-[1fr_32px_1fr] items-center gap-2 sm:gap-3"
+            >
+              {/* Left Side */}
+              {isImageLeft ? (
+                /* Image on Left */
+                <motion.div
+                  initial={{ opacity: 0, x: -22, rotate: -3 }}
+                  whileInView={{ opacity: 1, x: 0, rotate: -1.5 }}
+                  viewport={{ once: true, margin: '-20px' }}
+                  transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ scale: 1.04, rotate: 0 }}
+                  className="p-1 sm:p-1.5 bg-white rounded-xl shadow-xs border border-[#717861]/25 overflow-hidden justify-self-end w-full max-w-[145px] sm:max-w-[165px] cursor-pointer"
+                >
+                  <div className="aspect-4/3 rounded-lg overflow-hidden bg-stone-100">
+                    <img
+                      src={item.imageUrl}
+                      alt={item.title}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    />
+                  </div>
+                </motion.div>
+              ) : (
+                /* Text on Left */
+                <motion.div
+                  initial={{ opacity: 0, x: -22 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-20px' }}
+                  transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-right pr-0.5 sm:pr-2 flex flex-col items-end"
+                >
+                  <span className="inline-block font-mono text-[10px] sm:text-[11px] font-semibold text-[#5b624d] tracking-wider px-2 py-0.5 rounded-full bg-[#8a927a]/15 mb-0.5">
+                    {item.year}
+                  </span>
+                  <h3 className="font-serif text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#2d2926] mt-0.5">
+                    {item.title}
+                  </h3>
+                  <p className="text-[10px] sm:text-[11px] text-[#57524d] leading-snug font-light mt-0.5 max-w-[155px]">
+                    {item.description}
+                  </p>
+                </motion.div>
+              )}
+
+              {/* Center Timeline Node / Dot with pulse */}
+              <div className="relative flex justify-center items-center z-10">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+                  className="w-3.5 h-3.5 rounded-full bg-[#fdfbf7] border-2 border-[#5b624d] flex items-center justify-center shadow-xs"
+                >
+                  <motion.div
+                    animate={{ scale: [1, 1.25, 1] }}
+                    transition={{ duration: 3, delay: idx * 0.4, repeat: Infinity, ease: 'easeInOut' }}
+                    className="w-1.5 h-1.5 rounded-full bg-[#717861]"
+                  />
+                </motion.div>
               </div>
-              <h3 className="font-serif text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#2d2926] mt-0.5">
-                {item.title}
-              </h3>
-              <p className="text-[11px] sm:text-xs text-[#57524d] leading-snug font-light mt-0.5">
-                {item.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+
+              {/* Right Side */}
+              {!isImageLeft ? (
+                /* Image on Right */
+                <motion.div
+                  initial={{ opacity: 0, x: 22, rotate: 3 }}
+                  whileInView={{ opacity: 1, x: 0, rotate: 1.5 }}
+                  viewport={{ once: true, margin: '-20px' }}
+                  transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ scale: 1.04, rotate: 0 }}
+                  className="p-1 sm:p-1.5 bg-white rounded-xl shadow-xs border border-[#717861]/25 overflow-hidden justify-self-start w-full max-w-[145px] sm:max-w-[165px] cursor-pointer"
+                >
+                  <div className="aspect-4/3 rounded-lg overflow-hidden bg-stone-100">
+                    <img
+                      src={item.imageUrl}
+                      alt={item.title}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    />
+                  </div>
+                </motion.div>
+              ) : (
+                /* Text on Right */
+                <motion.div
+                  initial={{ opacity: 0, x: 22 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-20px' }}
+                  transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-left pl-0.5 sm:pl-2 flex flex-col items-start"
+                >
+                  <span className="inline-block font-mono text-[10px] sm:text-[11px] font-semibold text-[#5b624d] tracking-wider px-2 py-0.5 rounded-full bg-[#8a927a]/15 mb-0.5">
+                    {item.year}
+                  </span>
+                  <h3 className="font-serif text-xs sm:text-sm font-semibold tracking-wider uppercase text-[#2d2926] mt-0.5">
+                    {item.title}
+                  </h3>
+                  <p className="text-[10px] sm:text-[11px] text-[#57524d] leading-snug font-light mt-0.5 max-w-[155px]">
+                    {item.description}
+                  </p>
+                </motion.div>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {/* Olive Branch at Bottom Center with soothing sway */}

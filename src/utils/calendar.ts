@@ -4,8 +4,8 @@
 
 export const BETROTHAL_EVENT = {
   title: 'Betrothal Celebration: Ashik & Teresa',
-  description: 'Join us to celebrate the betrothal of Ashik and Teresa at St Aloysius College Auditorium in Elthuruth, Thrissur, Kerala.',
-  location: 'St Aloysius College Auditorium, F5WJ+M97, SACT, Aloysius college, Elthuruth, Thrissur, Keralam 680611',
+  description: 'Join us to celebrate the betrothal of Ashik and Teresa at Carmalamatha Church, Chettupuzha followed by the Feast at St Aloysius College Auditorium in Elthuruth, Thrissur, Kerala.',
+  location: 'Carmalamatha Church, G538+QHR, Road, Kanjani, Chettupuzha, Thrissur, Kerala 680012',
   startDate: new Date('2026-12-26T10:30:00+05:30'),
   endDate: new Date('2026-12-26T15:30:00+05:30'),
 };
