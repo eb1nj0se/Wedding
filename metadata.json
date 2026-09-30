@@ -1,0 +1,6 @@
+{
+  "name": "Aurelia & Julian — Wedding Celebration & RSVP",
+  "description": "An interactive, modern mobile-first wedding invitation featuring smooth parallax storytelling, live countdown, ceremony timeline, venue navigation, and instant RSVP.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

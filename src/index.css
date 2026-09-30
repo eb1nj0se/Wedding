@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-script: 'Great Vibes', cursive;
+  --color-olive-500: #717861;
+  --color-olive-600: #5b624d;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  background-color: #f7f4ee;
+  color: #2d2926;
+}
+
+.font-serif {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+.font-script {
+  font-family: 'Great Vibes', cursive;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Card Scroll Snap System */
+html.card-snap-active,
+.card-snap-active {
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.card-snap-item {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scroll-margin-top: 16px;
+}
+
+/* Luxury warm stationery card */
+.wedding-card {
+  background-color: #fdfbf7;
+  border: 1px solid rgba(138, 146, 122, 0.18);
+  box-shadow: 0 10px 30px -10px rgba(45, 41, 38, 0.08), 0 2px 6px -1px rgba(45, 41, 38, 0.04);
+}
+
+/* Subtle botanical hairline divider */
+.botanical-divider {
+  background: linear-gradient(90deg, transparent, rgba(113, 120, 97, 0.3), transparent);
+}
+

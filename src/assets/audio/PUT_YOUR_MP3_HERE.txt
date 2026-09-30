@@ -1,0 +1,3 @@
+Alternative location for your MP3 file:
+  src/assets/audio/love-story.mp3
+The server automatically detects audio placed here as well!

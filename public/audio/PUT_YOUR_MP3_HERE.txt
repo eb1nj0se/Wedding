@@ -1,0 +1,6 @@
+Place your "Indila - Love Story" mp3 file here!
+You can name it:
+  love-story.mp3
+or any .mp3 / .m4a / .wav file.
+
+The application automatically scans this folder, serves it, and plays it by default!
