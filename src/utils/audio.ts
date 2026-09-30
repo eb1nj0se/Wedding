@@ -77,9 +77,10 @@ class NativeMp3AudioEngine {
 
   private initAudioElement() {
     if (this.audio) return;
-    this.audio = new Audio();
+    this.audio = new Audio(this.defaultSrc);
     this.audio.loop = true;
     this.audio.preload = 'auto';
+    this.hasAudio = true;
 
     this.audio.addEventListener('play', () => {
       this.isPlaying = true;
@@ -173,7 +174,7 @@ class NativeMp3AudioEngine {
 
     // 4. Periodically check server until audio file is detected
     const interval = setInterval(async () => {
-      if (this.hasAudio) {
+      if (this.hasAudio && this.isPlaying) {
         clearInterval(interval);
         return;
       }
@@ -200,27 +201,32 @@ class NativeMp3AudioEngine {
   }
 
   private setupAutoplayUnblockers() {
-    const unlock = () => {
-      if (this.hasUnlocked) return;
-      this.hasUnlocked = true;
-
-      if (this.audio && this.audio.src && this.hasAudio && this.audio.paused) {
-        this.audio.play().then(() => {
-          this.isPlaying = true;
-          this.notifyListeners();
-        }).catch(() => {});
+    const tryUnlock = () => {
+      if (this.isPlaying) {
+        cleanup();
+        return;
       }
 
-      window.removeEventListener('click', unlock);
-      window.removeEventListener('touchstart', unlock);
-      window.removeEventListener('scroll', unlock);
-      window.removeEventListener('keydown', unlock);
+      this.play().then((started) => {
+        if (started) {
+          cleanup();
+        }
+      }).catch(() => {});
     };
 
-    window.addEventListener('click', unlock, { passive: true, once: true });
-    window.addEventListener('touchstart', unlock, { passive: true, once: true });
-    window.addEventListener('scroll', unlock, { passive: true, once: true });
-    window.addEventListener('keydown', unlock, { passive: true, once: true });
+    const events = ['click', 'touchstart', 'touchend', 'pointerdown', 'scroll', 'keydown'];
+
+    const cleanup = () => {
+      events.forEach((evt) => {
+        window.removeEventListener(evt, tryUnlock);
+        document.removeEventListener(evt, tryUnlock);
+      });
+    };
+
+    events.forEach((evt) => {
+      window.addEventListener(evt, tryUnlock, { passive: true });
+      document.addEventListener(evt, tryUnlock, { passive: true });
+    });
   }
 
   public subscribe(listener: AudioStateListener): () => void {

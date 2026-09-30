@@ -12,6 +12,7 @@ import { RsvpCard } from './components/RsvpCard';
 import { CelebrateCard } from './components/CelebrateCard';
 import { RsvpModal } from './components/RsvpModal';
 import { AudioModal } from './components/AudioModal';
+import { EnvelopeWelcome } from './components/EnvelopeWelcome';
 import { TopNavBar, CardItem } from './components/TopNavBar';
 import { DeviceFrameSwitch } from './components/DeviceFrameSwitch';
 import { audioEngine } from './utils/audio';
@@ -36,13 +37,31 @@ export default function App() {
   const [maxVisitedIndex, setMaxVisitedIndex] = useState(0);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [userRsvp, setUserRsvp] = useState<RSVPData | null>(null);
+  const [showWelcomeEnvelope, setShowWelcomeEnvelope] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return sessionStorage.getItem('invitation_opened') !== 'true';
+  });
 
   const phoneScrollRef = useRef<HTMLDivElement | null>(null);
+
+  const handleOpenWelcome = () => {
+    sessionStorage.setItem('invitation_opened', 'true');
+    setShowWelcomeEnvelope(false);
+    audioEngine.play();
+  };
 
   // Initialize and Autoplay Indila - Love Story MP3
   useEffect(() => {
     // Attempt playback immediately
     audioEngine.play();
+
+    // Also attach first interaction fallback on window
+    const handleFirstTouch = () => {
+      audioEngine.play().catch(() => {});
+    };
+    window.addEventListener('pointerdown', handleFirstTouch, { passive: true, once: true });
+    window.addEventListener('touchstart', handleFirstTouch, { passive: true, once: true });
+    window.addEventListener('click', handleFirstTouch, { passive: true, once: true });
 
     const unsubscribe = audioEngine.subscribe((playing, _track, audioReady) => {
       setIsPlayingMusic(playing);
@@ -51,6 +70,9 @@ export default function App() {
 
     return () => {
       unsubscribe();
+      window.removeEventListener('pointerdown', handleFirstTouch);
+      window.removeEventListener('touchstart', handleFirstTouch);
+      window.removeEventListener('click', handleFirstTouch);
     };
   }, []);
 
@@ -320,6 +342,11 @@ export default function App() {
         isPlayingMusic={isPlayingMusic}
         hasAudio={hasAudio}
       />
+
+      {/* Tap-to-open Welcome Envelope: Guarantees 100% browser autoplay permission on all devices */}
+      {showWelcomeEnvelope && (
+        <EnvelopeWelcome onOpen={handleOpenWelcome} />
+      )}
     </div>
   );
 }
