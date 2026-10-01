@@ -4,10 +4,10 @@
 
 export const BETROTHAL_EVENT = {
   title: 'Betrothal Celebration: Ashik & Teresa',
-  description: 'Join us to celebrate the betrothal of Ashik and Teresa at Carmalamatha Church, Chettupuzha followed by the Feast at St Aloysius College Auditorium in Elthuruth, Thrissur, Kerala.',
+  description: 'Join us to celebrate the betrothal of Ashik and Teresa. Betrothal Ceremony is at 11:30 AM at Carmalamatha Church, Chettupuzha followed by the Feast at 12:30 PM at St Aloysius College Auditorium in Elthuruth, Thrissur, Kerala.',
   location: 'Carmalamatha Church, G538+QHR, Road, Kanjani, Chettupuzha, Thrissur, Kerala 680012',
-  startDate: new Date('2026-12-26T10:30:00+05:30'),
-  endDate: new Date('2026-12-26T15:30:00+05:30'),
+  startDate: new Date('2026-12-26T11:30:00+05:30'),
+  endDate: new Date('2026-12-26T16:00:00+05:30'),
 };
 
 // Kept alias for backwards compatibility

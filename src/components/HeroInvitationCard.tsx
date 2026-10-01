@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Volume2, VolumeX, Calendar } from 'lucide-react';
+import { Volume2, VolumeX, Calendar, Heart } from 'lucide-react';
 import { CornerLeaves } from './BotanicalAccents';
 import { audioEngine } from '../utils/audio';
 import { getGoogleCalendarUrl } from '../utils/calendar';
+import { RSVPData } from '../types';
 
 interface HeroInvitationCardProps {
   onOpenRsvp: () => void;
@@ -11,6 +12,7 @@ interface HeroInvitationCardProps {
   setIsPlayingMusic: (val: boolean) => void;
   hasAudio: boolean;
   onOpenAudioModal?: () => void;
+  userRsvp?: RSVPData | null;
 }
 
 export const HeroInvitationCard: React.FC<HeroInvitationCardProps> = ({
@@ -19,6 +21,7 @@ export const HeroInvitationCard: React.FC<HeroInvitationCardProps> = ({
   setIsPlayingMusic,
   hasAudio,
   onOpenAudioModal,
+  userRsvp,
 }) => {
   const handleAudioToggle = () => {
     if (!hasAudio && onOpenAudioModal) {
@@ -181,7 +184,7 @@ export const HeroInvitationCard: React.FC<HeroInvitationCardProps> = ({
           transition={{ duration: 0.7, delay: 0.4 }}
           className="text-[10px] tracking-[0.2em] uppercase text-[#787169] mt-1 mb-5"
         >
-          At 10:30 in the Morning
+          At 11:30 in the Morning
         </motion.p>
       </div>
 
@@ -220,22 +223,46 @@ export const HeroInvitationCard: React.FC<HeroInvitationCardProps> = ({
           >
             Chettupuzha &middot; Elthuruth, Thrissur
           </motion.p>
-          <motion.div
-            animate={{ scale: [1, 1.25, 1] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="text-xs text-[#717861] mt-1 select-none inline-block"
-          >
-            ♡
-          </motion.div>
-
-          {/* Quick RSVP CTA button directly on the hero card */}
-          <div className="mt-3">
-            <button
+          {/* Quick RSVP CTA button with subtle heartbeat pulse animation */}
+          <div className="mt-3 flex justify-center">
+            <motion.button
               onClick={onOpenRsvp}
-              className="px-6 py-2.5 rounded-full bg-[#5b624d] hover:bg-[#4a503e] text-white text-xs tracking-widest uppercase font-medium shadow-md shadow-[#5b624d]/20 transition-all active:scale-95 touch-manipulation cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{
+                scale: [1, 1.035, 1, 1.025, 1],
+                boxShadow: [
+                  '0 4px 14px 0 rgba(91, 98, 77, 0.25)',
+                  '0 6px 20px 2px rgba(91, 98, 77, 0.42)',
+                  '0 4px 14px 0 rgba(91, 98, 77, 0.25)',
+                  '0 5px 18px 1px rgba(91, 98, 77, 0.35)',
+                  '0 4px 14px 0 rgba(91, 98, 77, 0.25)',
+                ],
+              }}
+              transition={{
+                duration: 2.4,
+                repeat: Infinity,
+                repeatDelay: 1,
+                ease: 'easeInOut',
+              }}
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#5b624d] hover:bg-[#4a503e] text-white text-xs tracking-widest uppercase font-medium shadow-md transition-colors active:scale-95 touch-manipulation cursor-pointer group"
             >
-              RSVP Now
-            </button>
+              <span>{userRsvp ? 'Edit your response' : 'RSVP Now'}</span>
+              <motion.span
+                animate={{
+                  scale: [1, 1.35, 1, 1.22, 1],
+                }}
+                transition={{
+                  duration: 2.4,
+                  repeat: Infinity,
+                  repeatDelay: 1,
+                  ease: 'easeInOut',
+                }}
+                className="inline-flex items-center text-amber-200 group-hover:text-rose-200 transition-colors"
+              >
+                <Heart className="w-3.5 h-3.5 fill-current" />
+              </motion.span>
+            </motion.button>
           </div>
         </div>
       </div>

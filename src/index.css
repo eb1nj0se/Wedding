@@ -32,6 +32,10 @@ body {
   font-family: 'Great Vibes', cursive;
 }
 
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

@@ -20,14 +20,14 @@ export const SaveTheDateCard: React.FC = () => {
     calendarCells.push(d);
   }
 
-  // Google Calendar URL for 26 December 2026 10:30 AM IST
+  // Google Calendar URL for 26 December 2026 11:30 AM IST
   const getGoogleCalendarUrl = () => {
     const title = encodeURIComponent('Betrothal of Ashik & Teresa');
     const details = encodeURIComponent(
-      'Betrothal Ceremony at Carmalamatha Church, Chettupuzha followed by the Feast at St Aloysius College Auditorium, Elthuruth, Thrissur.'
+      'Betrothal Ceremony at 11:30 AM at Carmalamatha Church, Chettupuzha followed by the Feast at 12:30 PM at St Aloysius College Auditorium, Elthuruth, Thrissur.'
     );
-    const location = encodeURIComponent('Carmalamatha church, Chettupuzha, Thrissur, Kerala');
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261226T050000Z/20261226T093000Z&details=${details}&location=${location}`;
+    const location = encodeURIComponent('Carmalamatha Church, Chettupuzha, Thrissur, Kerala');
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261226T060000Z/20261226T103000Z&details=${details}&location=${location}`;
   };
 
   return (

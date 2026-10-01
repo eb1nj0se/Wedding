@@ -32,7 +32,7 @@ export const DetailsCard: React.FC = () => {
     {
       icon: Church,
       title: 'Betrothal Ceremony',
-      time: '10:30 AM',
+      time: '11:30 AM',
       primary: churchName,
       desc: churchAddress,
       subnote: null,
@@ -40,7 +40,7 @@ export const DetailsCard: React.FC = () => {
     {
       icon: Utensils,
       title: 'Feast & Reception',
-      time: '12:00 PM',
+      time: '12:30 PM',
       primary: feastName,
       desc: feastAddress,
       subnote: 'Follows the Holy Ceremony',

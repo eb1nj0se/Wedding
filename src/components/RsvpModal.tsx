@@ -111,7 +111,7 @@ export const RsvpModal: React.FC<RsvpModalProps> = ({
               Kindly Respond
             </span>
             <h3 className="font-serif text-xl sm:text-2xl text-[#2d2926] font-normal">
-              {isSubmitted ? 'Your RSVP Response' : 'RSVP for Betrothal'}
+              Confirm your presence
             </h3>
           </div>
           <button
@@ -244,14 +244,31 @@ export const RsvpModal: React.FC<RsvpModalProps> = ({
                   <div className="flex items-center justify-between border-b border-[#717861]/20 pb-3 mb-4">
                     <div>
                       <div className="font-serif text-lg text-[#2d2926] font-medium tracking-wide">
-                        Ashik &amp; Teresa
+                        Dr. Ashik &amp; Dr. Teresa
                       </div>
                       <div className="text-[10px] uppercase tracking-widest text-[#717861]">
                         The Betrothal
                       </div>
                     </div>
-                    <div className="font-serif text-xl font-light text-[#5b624d]">
-                      A&T
+                    {/* Elegant Roman Monogram Crest Seal */}
+                    <div className="relative w-12 h-12 rounded-full p-0.5 bg-gradient-to-b from-[#e8dfd1] via-[#dcd2c0] to-[#c5b8a0] shadow-sm flex items-center justify-center shrink-0">
+                      <div className="w-full h-full rounded-full bg-[#fbf9f5] border border-[#717861]/35 flex flex-col items-center justify-center shadow-inner relative overflow-hidden">
+                        <div className="absolute inset-0.5 rounded-full border border-dashed border-[#8a927a]/40 pointer-events-none" />
+                        <div className="flex items-center justify-center select-none z-10 pt-0.5">
+                          <span className="font-cinzel text-xs font-normal text-[#444a37] tracking-wider leading-none">
+                            A
+                          </span>
+                          <span className="font-serif italic text-[11px] text-[#b89547] mx-0.5 leading-none font-normal">
+                            &amp;
+                          </span>
+                          <span className="font-cinzel text-xs font-normal text-[#444a37] tracking-wider leading-none">
+                            T
+                          </span>
+                        </div>
+                        <span className="text-[6px] font-cinzel tracking-[0.2em] text-[#8a927a] mt-0.5 select-none leading-none">
+                          MMXXVI
+                        </span>
+                      </div>
                     </div>
                   </div>
 

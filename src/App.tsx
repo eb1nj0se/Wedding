@@ -223,6 +223,7 @@ export default function App() {
           setIsPlayingMusic={setIsPlayingMusic}
           hasAudio={hasAudio}
           onOpenAudioModal={() => setIsAudioModalOpen(true)}
+          userRsvp={userRsvp}
         />
       </div>
 
@@ -251,7 +252,10 @@ export default function App() {
 
       {/* Card 6: We Can't Wait To Celebrate With You! */}
       <div className="card-snap-item pt-2 sm:pt-4">
-        <CelebrateCard />
+        <CelebrateCard
+          onOpenRsvpModal={() => setIsRsvpOpen(true)}
+          userRsvp={userRsvp}
+        />
       </div>
     </div>
   );

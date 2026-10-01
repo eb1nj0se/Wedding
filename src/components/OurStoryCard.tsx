@@ -17,16 +17,10 @@ const MILESTONES: StoryMilestone[] = [
     imageUrl: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=400&q=80',
   },
   {
-    year: '2020',
+    year: '2022',
     title: 'WE FELL IN LOVE',
     description: 'Adventures, laughter and countless memories.',
     imageUrl: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    year: '2023',
-    title: 'THE PROPOSAL',
-    description: 'The start of our forever together.',
-    imageUrl: 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=400&q=80',
   },
   {
     year: '2026',

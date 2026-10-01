@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Music, Heart, Volume2, Sparkles, MailOpen } from 'lucide-react';
+import { MailOpen } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { CornerLeaves, HeartDivider } from './BotanicalAccents';
 
@@ -58,12 +58,37 @@ export const EnvelopeWelcome: React.FC<EnvelopeWelcomeProps> = ({ onOpen }) => {
             <div className="absolute inset-0 bg-radial from-[#e8dfd1]/40 via-transparent to-transparent pointer-events-none" />
 
             <div className="relative z-10 flex flex-col items-center">
-              {/* Monogram Seal */}
-              <div className="w-14 h-14 rounded-full bg-[#f4efe6] border border-[#717861]/30 flex items-center justify-center shadow-inner mb-4">
-                <span className="font-serif text-lg text-[#5b624d] font-semibold tracking-wider">
-                  A & T
-                </span>
-              </div>
+              {/* Elegant Roman Monogram Crest Seal */}
+              <motion.div
+                initial={{ scale: 0.85, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                className="relative w-20 h-20 sm:w-22 sm:h-22 rounded-full p-1 bg-gradient-to-b from-[#e8dfd1] via-[#dcd2c0] to-[#c5b8a0] shadow-md mb-4 flex items-center justify-center"
+              >
+                {/* Inner circular medallion */}
+                <div className="w-full h-full rounded-full bg-[#fbf9f5] border border-[#717861]/35 flex flex-col items-center justify-center shadow-inner relative overflow-hidden">
+                  {/* Delicate inner dashed ring */}
+                  <div className="absolute inset-1 rounded-full border border-dashed border-[#8a927a]/40 pointer-events-none" />
+
+                  {/* Monogram Content */}
+                  <div className="flex items-center justify-center select-none z-10 pt-0.5">
+                    <span className="font-cinzel text-xl sm:text-2xl font-normal text-[#444a37] tracking-wider leading-none">
+                      A
+                    </span>
+                    <span className="font-serif italic text-base sm:text-lg text-[#b89547] mx-1 sm:mx-1.5 leading-none font-normal">
+                      &amp;
+                    </span>
+                    <span className="font-cinzel text-xl sm:text-2xl font-normal text-[#444a37] tracking-wider leading-none">
+                      T
+                    </span>
+                  </div>
+
+                  {/* Subtle Roman year numeral underneath */}
+                  <span className="text-[8px] sm:text-[9px] font-cinzel tracking-[0.25em] text-[#8a927a] mt-1 select-none leading-none">
+                    MMXXVI
+                  </span>
+                </div>
+              </motion.div>
 
               {/* Sub-header */}
               <p className="text-[10px] uppercase tracking-[0.3em] text-[#717861] font-semibold mb-1">
@@ -81,12 +106,9 @@ export const EnvelopeWelcome: React.FC<EnvelopeWelcomeProps> = ({ onOpen }) => {
 
               <HeartDivider className="my-3 text-[#717861] opacity-60 w-36" />
 
-              <p className="text-xs text-[#6e6862] leading-relaxed mb-6 max-w-[260px]">
-                Saturday, 26 December 2026 • 10:30 AM
-                <br />
-                <span className="text-[11px] text-[#8c827a]">
-                  Carmalamatha church, Chettupuzha
-                </span>
+              {/* Date Only (Church name & time removed) */}
+              <p className="text-xs font-serif tracking-[0.18em] uppercase text-[#6e6862] font-medium mb-6">
+                Saturday, 26 December 2026
               </p>
 
               {/* Primary Call to Action Button */}
@@ -100,14 +122,7 @@ export const EnvelopeWelcome: React.FC<EnvelopeWelcomeProps> = ({ onOpen }) => {
                   <MailOpen className="w-3.5 h-3.5 text-white" />
                 </div>
                 <span className="tracking-wide">Open Invitation</span>
-                <Music className="w-4 h-4 text-emerald-200 animate-pulse ml-0.5" />
               </motion.button>
-
-              {/* Audio footnote */}
-              <p className="text-[10px] text-[#8c827a] mt-3 flex items-center justify-center gap-1.5">
-                <Volume2 className="w-3 h-3 text-[#717861]" />
-                <span>Plays music on open</span>
-              </p>
             </div>
           </motion.div>
         </motion.div>
