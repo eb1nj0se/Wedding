@@ -10,11 +10,11 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=8080
 COPY package*.json ./
-RUN npm install --omit=dev --legacy-peer-deps && npm install -g tsx
+RUN npm install --omit=dev --legacy-peer-deps
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/server.ts ./server.ts
 COPY --from=builder /app/love-story.mp3 ./love-story.mp3
 
 EXPOSE 8080
-CMD ["tsx", "server.ts"]
+CMD ["npx", "tsx", "server.ts"]

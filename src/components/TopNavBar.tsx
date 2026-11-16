@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronUp, ChevronDown, CheckSquare, Volume2, VolumeX } from 'lucide-react';
+import { ChevronUp, ChevronDown, Volume2, VolumeX } from 'lucide-react';
 
 export interface CardItem {
   id: string;
@@ -15,7 +15,6 @@ interface TopNavBarProps {
   onSelectCard: (index: number) => void;
   onNextCard: () => void;
   onPrevCard: () => void;
-  onOpenRsvp: () => void;
   isPlayingMusic?: boolean;
   onToggleMusic?: () => void;
   hasAudio?: boolean;
@@ -30,7 +29,6 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
   onSelectCard,
   onNextCard,
   onPrevCard,
-  onOpenRsvp,
   isPlayingMusic = true,
   onToggleMusic,
   hasAudio = false,
@@ -65,7 +63,10 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
               aria-label="Progress & Navigation"
             >
               {/* Ultra-slim segmented progress bar */}
-              <div className="grid grid-cols-6 gap-1 w-full pt-0.5">
+              <div
+                className="grid gap-1 w-full pt-0.5"
+                style={{ gridTemplateColumns: `repeat(${cards.length}, minmax(0, 1fr))` }}
+              >
                 {cards.map((card, idx) => {
                   const isPast = idx < activeCardIndex || (idx <= maxVisitedIndex && idx !== activeCardIndex);
                   const isCurrent = idx === activeCardIndex;
@@ -92,7 +93,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
                 })}
               </div>
 
-              {/* Slim single-line content: Title on left, micro steppers, audio & RSVP on right */}
+              {/* Slim single-line content: Title on left, micro steppers & audio on right */}
               <div className="flex items-center justify-between gap-2 h-6">
                 <span className="font-serif text-[11px] sm:text-xs font-semibold text-[#2d2926] tracking-wide truncate">
                   {currentCard.label}
@@ -151,14 +152,6 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
                     title="Next card"
                   >
                     <ChevronDown className="w-3.5 h-3.5" />
-                  </button>
-
-                  <button
-                    onClick={onOpenRsvp}
-                    className="ml-1 py-0.5 px-2 rounded-full bg-[#5b624d] hover:bg-[#4a503e] text-white text-[9px] tracking-wider uppercase font-semibold flex items-center gap-1 shadow-2xs touch-manipulation cursor-pointer active:scale-95 transition-transform"
-                  >
-                    <CheckSquare className="w-2.5 h-2.5" />
-                    <span>RSVP</span>
                   </button>
                 </div>
               </div>

@@ -1,27 +1,23 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Volume2, VolumeX, Calendar, Heart } from 'lucide-react';
+import { Volume2, VolumeX, Calendar } from 'lucide-react';
 import { CornerLeaves } from './BotanicalAccents';
 import { audioEngine } from '../utils/audio';
 import { getGoogleCalendarUrl } from '../utils/calendar';
-import { RSVPData } from '../types';
+import couplePhoto from '../assets/Couplephoto.jpeg';
 
 interface HeroInvitationCardProps {
-  onOpenRsvp: () => void;
   isPlayingMusic: boolean;
   setIsPlayingMusic: (val: boolean) => void;
   hasAudio: boolean;
   onOpenAudioModal?: () => void;
-  userRsvp?: RSVPData | null;
 }
 
 export const HeroInvitationCard: React.FC<HeroInvitationCardProps> = ({
-  onOpenRsvp,
   isPlayingMusic,
   setIsPlayingMusic,
   hasAudio,
   onOpenAudioModal,
-  userRsvp,
 }) => {
   const handleAudioToggle = () => {
     if (!hasAudio && onOpenAudioModal) {
@@ -188,19 +184,18 @@ export const HeroInvitationCard: React.FC<HeroInvitationCardProps> = ({
         </motion.p>
       </div>
 
-      {/* Couple Embracing Photograph with soothing gentle breath animation */}
+      {/* Couple Photograph with soothing gentle breath animation */}
       <div className="relative mt-2 -mx-5 -mb-6 aspect-4/5 overflow-hidden">
         <motion.img
-          src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80"
-          alt="Ashik and Teresa embracing at sunset"
-          referrerPolicy="no-referrer"
+          src={couplePhoto}
+          alt="Dr. Ashik and Dr. Teresa"
           animate={{ scale: [1, 1.025, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-full h-full object-cover object-center filter contrast-[1.03] brightness-[0.98]"
+          className="w-full h-full object-cover object-[center_14%] filter contrast-[1.02] brightness-[1.0]"
         />
 
         {/* Soft gradient scrim and paper blend */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#fdfbf7] via-transparent to-transparent opacity-95" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#fdfbf7] via-[#fdfbf7]/20 to-transparent opacity-90" />
         <div className="absolute top-0 inset-x-0 h-10 bg-gradient-to-b from-[#fdfbf7] to-transparent opacity-80" />
 
         {/* Venue Location Text over bottom of photo */}
@@ -223,47 +218,6 @@ export const HeroInvitationCard: React.FC<HeroInvitationCardProps> = ({
           >
             Chettupuzha &middot; Elthuruth, Thrissur
           </motion.p>
-          {/* Quick RSVP CTA button with subtle heartbeat pulse animation */}
-          <div className="mt-3 flex justify-center">
-            <motion.button
-              onClick={onOpenRsvp}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              animate={{
-                scale: [1, 1.035, 1, 1.025, 1],
-                boxShadow: [
-                  '0 4px 14px 0 rgba(91, 98, 77, 0.25)',
-                  '0 6px 20px 2px rgba(91, 98, 77, 0.42)',
-                  '0 4px 14px 0 rgba(91, 98, 77, 0.25)',
-                  '0 5px 18px 1px rgba(91, 98, 77, 0.35)',
-                  '0 4px 14px 0 rgba(91, 98, 77, 0.25)',
-                ],
-              }}
-              transition={{
-                duration: 2.4,
-                repeat: Infinity,
-                repeatDelay: 1,
-                ease: 'easeInOut',
-              }}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#5b624d] hover:bg-[#4a503e] text-white text-xs tracking-widest uppercase font-medium shadow-md transition-colors active:scale-95 touch-manipulation cursor-pointer group"
-            >
-              <span>{userRsvp ? 'Edit your response' : 'RSVP Now'}</span>
-              <motion.span
-                animate={{
-                  scale: [1, 1.35, 1, 1.22, 1],
-                }}
-                transition={{
-                  duration: 2.4,
-                  repeat: Infinity,
-                  repeatDelay: 1,
-                  ease: 'easeInOut',
-                }}
-                className="inline-flex items-center text-amber-200 group-hover:text-rose-200 transition-colors"
-              >
-                <Heart className="w-3.5 h-3.5 fill-current" />
-              </motion.span>
-            </motion.button>
-          </div>
         </div>
       </div>
     </div>

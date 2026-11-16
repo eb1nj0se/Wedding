@@ -8,27 +8,22 @@ import { HeroInvitationCard } from './components/HeroInvitationCard';
 import { OurStoryCard } from './components/OurStoryCard';
 import { SaveTheDateCard } from './components/SaveTheDateCard';
 import { DetailsCard } from './components/DetailsCard';
-import { RsvpCard } from './components/RsvpCard';
 import { CelebrateCard } from './components/CelebrateCard';
-import { RsvpModal } from './components/RsvpModal';
 import { AudioModal } from './components/AudioModal';
 import { EnvelopeWelcome } from './components/EnvelopeWelcome';
 import { TopNavBar, CardItem } from './components/TopNavBar';
 import { DeviceFrameSwitch } from './components/DeviceFrameSwitch';
 import { audioEngine } from './utils/audio';
-import { RSVPData } from './types';
 
 const BETROTHAL_CARDS: CardItem[] = [
   { id: 'invite', label: 'Main Invitation', short: 'Invite' },
   { id: 'story', label: 'Our Story', short: 'Story' },
   { id: 'savedate', label: 'Save The Date', short: 'Save Date' },
   { id: 'details', label: 'The Details', short: 'Details' },
-  { id: 'rsvp', label: 'Kindly RSVP', short: 'RSVP' },
   { id: 'celebrate', label: 'Celebrate With Us', short: 'Celebrate' },
 ];
 
 export default function App() {
-  const [isRsvpOpen, setIsRsvpOpen] = useState(false);
   const [isAudioModalOpen, setIsAudioModalOpen] = useState(false);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
   const [hasAudio, setHasAudio] = useState(audioEngine.getHasAudio());
@@ -36,7 +31,6 @@ export default function App() {
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [maxVisitedIndex, setMaxVisitedIndex] = useState(0);
   const [isUnlocked, setIsUnlocked] = useState(false);
-  const [userRsvp, setUserRsvp] = useState<RSVPData | null>(null);
   const [showWelcomeEnvelope, setShowWelcomeEnvelope] = useState(true);
 
   const phoneScrollRef = useRef<HTMLDivElement | null>(null);
@@ -79,29 +73,6 @@ export default function App() {
     }
     const nextState = audioEngine.toggle();
     setIsPlayingMusic(nextState);
-  };
-
-  // Load stored RSVP
-  useEffect(() => {
-    try {
-      const stored =
-        localStorage.getItem('betrothal_rsvp_ashik_teresa') ||
-        localStorage.getItem('wedding_rsvp_ashik_teresa');
-      if (stored) {
-        setUserRsvp(JSON.parse(stored));
-      }
-    } catch {
-      // Ignore
-    }
-  }, []);
-
-  const handleSaveRsvp = (data: RSVPData) => {
-    setUserRsvp(data);
-    try {
-      localStorage.setItem('betrothal_rsvp_ashik_teresa', JSON.stringify(data));
-    } catch {
-      // Ignore
-    }
   };
 
   // Sync scroll-snap class to document.documentElement for full-screen mode
@@ -212,18 +183,16 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isUnlocked, activeCardIndex]);
 
-  // The 6 invitation cards wrapped with .card-snap-item
+  // The 5 invitation cards wrapped with .card-snap-item
   const cardsContent = (
     <div className="space-y-6 sm:space-y-8 pb-16 pt-3 px-3 sm:px-4 max-w-md mx-auto">
       {/* Card 1: Main Invitation Card */}
       <div className="card-snap-item">
         <HeroInvitationCard
-          onOpenRsvp={() => setIsRsvpOpen(true)}
           isPlayingMusic={isPlayingMusic}
           setIsPlayingMusic={setIsPlayingMusic}
           hasAudio={hasAudio}
           onOpenAudioModal={() => setIsAudioModalOpen(true)}
-          userRsvp={userRsvp}
         />
       </div>
 
@@ -242,20 +211,9 @@ export default function App() {
         <DetailsCard />
       </div>
 
-      {/* Card 5: Kindly RSVP */}
+      {/* Card 5: We Can't Wait To Celebrate With You! */}
       <div className="card-snap-item pt-2 sm:pt-4">
-        <RsvpCard
-          onOpenRsvpModal={() => setIsRsvpOpen(true)}
-          userRsvp={userRsvp}
-        />
-      </div>
-
-      {/* Card 6: We Can't Wait To Celebrate With You! */}
-      <div className="card-snap-item pt-2 sm:pt-4">
-        <CelebrateCard
-          onOpenRsvpModal={() => setIsRsvpOpen(true)}
-          userRsvp={userRsvp}
-        />
+        <CelebrateCard />
       </div>
     </div>
   );
@@ -285,7 +243,6 @@ export default function App() {
               onSelectCard={goToCard}
               onNextCard={handleNextCard}
               onPrevCard={handlePrevCard}
-              onOpenRsvp={() => setIsRsvpOpen(true)}
               isPlayingMusic={isPlayingMusic}
               onToggleMusic={handleToggleMusic}
               hasAudio={hasAudio}
@@ -315,7 +272,6 @@ export default function App() {
             onSelectCard={goToCard}
             onNextCard={handleNextCard}
             onPrevCard={handlePrevCard}
-            onOpenRsvp={() => setIsRsvpOpen(true)}
             isPlayingMusic={isPlayingMusic}
             onToggleMusic={handleToggleMusic}
             hasAudio={hasAudio}
@@ -327,13 +283,6 @@ export default function App() {
         </main>
       )}
 
-      {/* Interactive RSVP Sheet Modal */}
-      <RsvpModal
-        isOpen={isRsvpOpen}
-        onClose={() => setIsRsvpOpen(false)}
-        onSaveRsvp={handleSaveRsvp}
-        existingRsvp={userRsvp}
-      />
 
       {/* Audio Setup & Manager Modal */}
       <AudioModal
